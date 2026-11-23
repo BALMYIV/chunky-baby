@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chunky.baby — Baby Growth Percentile &amp; Seasonal Clothing Size Predictor</title>
+  <meta
+    name="description"
+    content="Check your baby's WHO weight &amp; length percentile, predict what clothing size they'll wear next winter or summer along their growth curve, and find chunky-thigh-friendly baby gear."
+  />
+  <meta name="theme-color" content="#FDF8F3" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chunky.baby/" />
+  <meta property="og:title" content="chunky.baby — Baby Percentile &amp; Seasonal Size Predictor" />
+  <meta
+    property="og:description"
+    content="Stop buying winter coats in the wrong size. Estimate your baby's WHO growth percentile and predict their clothing size for every upcoming season."
+  />
+  <link rel="canonical" href="https://chunky.baby/" />
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23C05E3C'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='34'%3E%F0%9F%A7%B8%3C/text%3E%3C/svg%3E"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I predict what baby clothing size my baby will wear next season?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most babies track closely along their own WHO growth percentile curve. By projecting your baby's current weight percentile forward by 3, 6, 9, and 12 months, you can match their expected future weight to standard US baby clothing size brackets instead of guessing by age alone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is a 90th percentile chunky baby healthy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In most cases, yes! Growth percentiles simply compare your baby to other healthy babies of the same age and sex. Pediatricians care most that your baby grows steadily along their own curve—not whether they are in the 15th or 95th percentile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do baby clothes shrink or run small on chunky thighs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Traditional 100% cotton zip sleepers are cut narrow to meet US snug-fit sleepwear safety rules and shrink in the dryer. Stretchy bamboo viscose or modal sleepers give much more room around chunky thighs and bellies while staying comfortably snug."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent rashes inside baby neck rolls and thigh folds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Gently wipe inside neck and thigh creases daily with a warm damp cloth, pat completely dry (moisture is the main culprit), and apply a thin protective layer of healing ointment like Aquaphor or zinc barrier cream."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#predictor">Skip to Percentile &amp; Size Predictor</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand" aria-label="chunky.baby home">
+        <span class="brand-badge" aria-hidden="true">🧸</span>
+        <span class="brand-name">chunky<span class="brand-dot">.baby</span></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#predictor">Size Predictor</a>
+        <a href="#seasons">Next 4 Seasons</a>
+        <a href="#kit">Chunky Baby Kit</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <button
+        id="nightModeToggle"
+        class="night-toggle"
+        type="button"
+        aria-pressed="false"
+        title="Switch to dim, low-blue-light 3 AM Nursery Mode"
+      >
+        <span class="night-icon" aria-hidden="true">🌙</span>
+        <span class="night-label">3 AM Mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <p class="eyebrow">WHO Growth Curves &middot; Seasonal Size Forecasting</p>
+        <h1>Big thigh rolls?<br />Stop buying the wrong size.</h1>
+        <p class="hero-sub">
+          Age labels on baby clothes lie. Enter your baby's age and measurements to check their
+          WHO percentile and forecast which size they'll actually wear for the next 4 seasons.
+        </p>
+        <div class="hero-actions">
+          <a href="#predictor" class="btn btn-primary">Predict Clothing Sizes</a>
+          <a href="#kit" class="btn btn-secondary">Chunky-Fit Essentials</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Percentile & Size Predictor -->
+    <section id="predictor" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Growth Percentile &amp; Size Predictor</h2>
+          <p>Built on World Health Organization (WHO) 0–24 month growth standards.</p>
+        </div>
+
+        <div class="predictor-grid">
+          <!-- Inputs -->
+          <form id="growthForm" class="card" onsubmit="return false;">
+            <div class="top-toggles">
+              <div class="segmented" role="radiogroup" aria-label="Baby sex for WHO chart">
+                <label>
+                  <input type="radio" name="sex" value="boy" checked />
+                  <span>Boy</span>
+                </label>
+                <label>
+                  <input type="radio" name="sex" value="girl" />
+                  <span>Girl</span>
+                </label>
+              </div>
+
+              <div class="segmented" role="radiogroup" aria-label="Measurement units">
+                <label>
+                  <input type="radio" name="units" value="imperial" checked />
+                  <span>lbs / in</span>
+                </label>
+                <label>
+                  <input type="radio" name="units" value="metric" />
+                  <span>kg / cm</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-row">
+                <label for="ageMonths">Baby's Age</label>
+                <span id="ageLabel" class="field-val">6 months</span>
+              </div>
+              <input id="ageMonths" type="range" min="0" max="24" step="1" value="6" />
+              <div class="range-ticks">
+                <span>Newborn</span>
+                <span>6m</span>
+                <span>12m</span>
+                <span>18m</span>
+                <span>24m</span>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-row">
+                <label for="weightInput">Current Weight</label>
+                <span id="weightLabel" class="field-val">19.2 lbs</span>
+              </div>
+              <input id="weightInput" type="range" min="5" max="36" step="0.2" value="19.2" />
+            </div>
+
+            <div class="field-group">
+              <div class="field-row">
+                <label for="lengthInput">Current Length / Height</label>
+                <span id="lengthLabel" class="field-val">26.8 in</span>
+              </div>
+              <input id="lengthInput" type="range" min="17" max="38" step="0.2" value="26.8" />
+            </div>
+
+            <div class="field-group">
+              <label for="currentMonth" class="select-label">Current Calendar Month (for seasonal forecast)</label>
+              <select id="currentMonth" class="select-input"></select>
+            </div>
+          </form>
+
+          <!-- Live Percentile Output -->
+          <div class="card results-card" aria-live="polite">
+            <div class="vibe-badge-wrap">
+              <span id="vibeBadge" class="vibe-badge">Certified Chunky Thigh Rolls</span>
+            </div>
+
+            <div class="percentile-pair">
+              <div class="pct-box">
+                <span class="pct-label">Weight Percentile</span>
+                <div id="weightPct" class="pct-num">84th</div>
+                <div class="bar-track"><div id="weightBar" class="bar-fill" style="width:84%;"></div></div>
+              </div>
+              <div class="pct-box">
+                <span class="pct-label">Length Percentile</span>
+                <div id="lengthPct" class="pct-num">58th</div>
+                <div class="bar-track"><div id="lengthBar" class="bar-fill bar-fill-alt" style="width:58%;"></div></div>
+              </div>
+            </div>
+
+            <div class="now-size-box">
+              <span class="now-size-label">Best-Fit Clothing Size Right Now</span>
+              <div id="currentSize" class="now-size-val">9–12M</div>
+              <p id="fitAdvice" class="fit-advice">
+                Weight is running ahead of standard age labels—size up in snug cotton sleepers or grab stretchy bamboo footies.
+              </p>
+            </div>
+
+            <p class="disclaimer-mini">
+              Screening estimate only (WHO 0–24m standards). Healthy babies come in every percentile—always review your baby's growth curve with your pediatrician.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Next 4 Seasons Forecast -->
+    <section id="seasons" class="section section-tinted">
+      <div class="container">
+        <div class="section-head">
+          <h2>Next-12-Months Seasonal Clothing Forecast</h2>
+          <p>Assuming your baby keeps tracking along their current growth curve—here's what to buy on sale ahead of time.</p>
+        </div>
+
+        <div id="seasonGrid" class="season-grid" aria-live="polite"></div>
+
+        <div class="registry-strip">
+          <div>
+            <strong>Shopping ahead for the next size up?</strong>
+            <p>An Amazon Baby Registry gives eligible accounts a 15% completion discount on clothes, diapers, and feeding gear.</p>
+          </div>
+          <a
+            id="registryLink"
+            class="btn btn-primary"
+            href="https://www.amazon.com/baby-reg/homepage"
+            target="_blank"
+            rel="nofollow sponsored noopener noreferrer"
+          >
+            Start Free Baby Registry &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Chunky Baby Essentials Kit -->
+    <section id="kit" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Chunky-Thigh-Friendly Essentials Kit</h2>
+          <p>Parent-tested gear that actually fits big thighs, protects adorable neck rolls, and saves your lower back.</p>
+        </div>
+
+        <p class="affiliate-disclosure">
+          <strong>Disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+          Clicking these links helps keep <code>chunky.baby</code> free and ad-free at zero extra cost to you.
+        </p>
+
+        <div id="kitGrid" class="kit-grid"></div>
+      </div>
+    </section>
+
+    <!-- Section 4: FAQ -->
+    <section id="faq" class="section section-tinted">
+      <div class="container faq-container">
+        <div class="section-head">
+          <h2>Frequently Asked Growth &amp; Sizing Questions</h2>
+          <p>Quick answers for proud parents of hefty babies.</p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>Why is my 4-month-old already in 9-month clothes?</summary>
+            <p>
+              US baby clothing labels (like "6M" or "9M") are based on an average ~50th-percentile
+              baby and represent the <em>upper</em> end of the range ("6M" means roughly 3–6 months).
+              If your baby is in the 75th–99th percentile for weight or length, wearing 1–2 sizes
+              "ahead" of their calendar age is completely normal.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Which diaper brands fit chunky thighs best?</summary>
+            <p>
+              Every baby is shaped differently, but parents frequently find <strong>Huggies</strong>,
+              <strong>Kirkland</strong>, and <strong>Millie Moon</strong> slightly wider across the
+              hips and thighs than narrower cuts. If you notice red elastic marks on thighs—even if
+              baby is under the box's weight limit—it's time to size up!
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do I keep neck rolls and thigh folds rash-free?</summary>
+            <p>
+              Milk drips and drool love hiding in neck creases. Gently swipe inside each fold with
+              a damp cloth once or twice a day, <strong>pat completely dry</strong>, and seal with a
+              tiny dab of Aquaphor or gentle barrier ointment.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Will a chunky baby stay big as a toddler?</summary>
+            <p>
+              Not necessarily! Many super-chunky 6-to-9-month-olds slim down dramatically once they
+              start crawling, cruising, and sprinting around the house around 12–18 months. Baby
+              chub is normal, healthy energy storage for rapid brain and body growth.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <strong>chunky.baby</strong>
+        <p>WHO growth percentile estimator &amp; seasonal baby clothing size predictor.</p>
+        <p class="sibling-links">
+          3 AM Parent Toolkit:
+          <a href="https://poopy.baby/">poopy.baby</a> &middot;
+          <a href="https://whiny.baby/">whiny.baby</a> &middot;
+          <a href="https://chunky.baby/">chunky.baby</a>
+        </p>
+      </div>
+      <div class="footer-legal">
+        <p>
+          <strong>Amazon Associate Disclosure:</strong> As an Amazon Associate I earn from
+          qualifying purchases.
+        </p>
+        <p>
+          <strong>Medical Disclaimer:</strong> Percentiles are estimates based on published WHO
+          0–24 month standards for informational purposes only and do not replace pediatric medical
+          advice.
+        </p>
+        <p class="footer-meta">
+          No cookies &middot; No tracking scripts &middot; &copy; <span id="yearSpan"></span> chunky.baby
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
